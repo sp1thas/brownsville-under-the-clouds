@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: raw_api_data
+    schema: raw_api_data
+    tables:
+      - name: api_resource
