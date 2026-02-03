@@ -17,10 +17,10 @@ pm.execute_notebook(
     output_ipynb,
     parameters=dict(
         execution_date=execution_date,
-        postgres_host=os.getenv("POSTGRES_HOST", "postgres"),
-        postgres_user=os.getenv("POSTGRES_USER", "postgres"),
-        postgres_password=os.getenv("POSTGRES_PASSWORD", "postgres"),
-        postgres_db=os.getenv("POSTGRES_DB", "destination_db")
+        postgres_host=os.getenv("POSTGRES_HOST"),
+        postgres_user=os.getenv("POSTGRES_USER"),
+        postgres_password=os.getenv("POSTGRES_PASSWORD"),
+        postgres_db=os.getenv("POSTGRES_DB")
     )
 )
 

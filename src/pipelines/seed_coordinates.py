@@ -10,9 +10,9 @@ def json_resource(file_path):
 
 def run_local_json_pipeline(credentials, file_path):
     pipeline = dlt.pipeline(
-        pipeline_name="json_to_postgres",
+        pipeline_name="load_coordinates",
         destination=dlt.destinations.postgres(credentials=credentials),
-        dataset_name="local_json_data"
+        dataset_name="staging"
     )
     
     load_info = pipeline.run(json_resource(file_path))

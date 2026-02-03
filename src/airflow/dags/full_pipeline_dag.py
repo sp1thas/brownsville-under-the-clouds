@@ -6,9 +6,9 @@ from datetime import datetime, timedelta
 import sys
 import os
 
-# Add dlt folder to path
+# Add src folder to path
 sys.path.append("/opt/airflow")
-from dlt.api_pipeline import run_pipeline
+from pipelines.api_pipeline import run_pipeline
 
 def run_dlt_api_task(ds, **kwargs):
     # Retrieve connection from Airflow
@@ -46,10 +46,10 @@ with DAG(
         bash_command="python /opt/airflow/scripts/generate_notebook.py",
         env={
             "EXECUTION_DATE": "{{ ds }}",
-            "POSTGRES_HOST": "postgres",
-            "POSTGRES_USER": "postgres",
-            "POSTGRES_PASSWORD": "postgres",
-            "POSTGRES_DB": "destination_db",
+            "POSTGRES_HOST": "{{ conn.postgres_default.host }}",
+            "POSTGRES_USER": "{{ conn.postgres_default.login }}",
+            "POSTGRES_PASSWORD": "{{ conn.postgres_default.password }}",
+            "POSTGRES_DB": "{{ conn.postgres_default.schema }}",
         }
     )
 

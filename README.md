@@ -4,7 +4,7 @@ This project implements a structured data pipeline using DLT, DBT, Airflow, and 
 
 ## Project Structure
 
-- `dlt/`: DLT pipeline scripts for data extraction.
+- `pipelines/`: DLT pipeline scripts for data extraction.
 - `dbt/`: DBT project for data transformation.
 - `airflow/dags/`: Airflow DAGs for orchestration.
 - `notebooks/`: Jupyter notebook templates and outputs.
@@ -32,7 +32,7 @@ This project implements a structured data pipeline using DLT, DBT, Airflow, and 
 
 ## Extending the Project
 
-- **DLT**: Modify `dlt/api_pipeline.py` to change the API source or extraction logic.
+- **DLT**: Modify `pipelines/api_pipeline.py` to change the API source or extraction logic.
 - **DBT**: Add or modify models in `dbt/models/`.
 - **Notebook**: Customize `notebooks/template.ipynb` for your analytics and visualizations.
 

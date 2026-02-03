@@ -5,12 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="91d9bb72-d1e8-4ee5-aa6b-9348c653b3e2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/brownsville-under-the-clouds.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile.airflow" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airflow/dags/full_pipeline_dag.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/airflow/dags/load_local_json_dag.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dbt/dbt_project.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dbt/models/marts/fct_api_summary.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dbt/models/staging/sources.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dbt/models/staging/stg_api_data.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dbt/profiles.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dlt/api_pipeline.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dlt/local_json_pipeline.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/template.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/generate_notebook.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +79,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1770144638302</updated>
-      <workItem from="1770144639404" duration="826000" />
+      <workItem from="1770144639404" duration="5305000" />
     </task>
     <servers />
   </component>

@@ -5,9 +5,9 @@ from datetime import datetime
 import sys
 import os
 
-# Add dlt folder to path
+# Add pipelines folder to path
 sys.path.append("/opt/airflow")
-from dlt.local_json_pipeline import run_local_json_pipeline
+from pipelines.local_json_pipeline import run_local_json_pipeline
 
 def run_dlt_json_task():
     # Retrieve connection from Airflow
