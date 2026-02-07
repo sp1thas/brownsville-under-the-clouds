@@ -1,0 +1,10 @@
+dbt-postgres
+dlt[postgres]
+ipykernel
+matplotlib
+nbconvert
+pandas
+papermill
+psycopg2-binary
+seaborn
+sqlalchemy

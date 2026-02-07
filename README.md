@@ -1,4 +1,6 @@
-# Minimal Data Pipeline Project
+# brownsville-under-the-clouds
+
+[![preflight](https://github.com/sp1thas/brownsville-under-the-clouds/actions/workflows/preflight.yml/badge.svg)](https://github.com/sp1thas/brownsville-under-the-clouds/actions/workflows/preflight.yml)
 
 This project implements a structured data pipeline using DLT, DBT, Airflow, and Postgres, all running in Docker.
 
@@ -29,6 +31,51 @@ This project implements a structured data pipeline using DLT, DBT, Airflow, and 
 3.  **Run DAGs**:
     - `load_local_json_dag`: Manually trigger this to load `data/sample.json` into Postgres.
     - `full_pipeline_dag`: This runs the end-to-end pipeline (DLT API -> DBT -> Notebook).
+
+## Development
+
+### Development Environment
+
+This project uses `uv` for fast dependency management.
+
+1.  **Install uv**: Follow the [official guide](https://github.com/astral-sh/uv).
+2.  **Create environment and install dependencies**:
+    ```bash
+    uv venv
+    uv pip install -r requirements.txt
+    ```
+
+### Pre-commit Hooks
+
+This project uses `pre-commit` to maintain code quality. To set it up:
+
+1.  **Install pre-commit**:
+    ```bash
+    pip install pre-commit
+    ```
+
+2.  **Install the git hook scripts**:
+    ```bash
+    pre-commit install
+    ```
+
+3.  **Run against all files (optional)**:
+    ```bash
+    pre-commit run --all-files
+    ```
+
+Hooks included:
+- `black` (formatting)
+- `isort` (import sorting)
+- `flake8` (linting)
+- `sqlfluff` (SQL linting for dbt)
+- `hadolint` (Dockerfile linting)
+- `check-jsonschema` (Docker Compose and GitHub Workflows validation)
+- `check-yaml`, `end-of-file-fixer`, `trailing-whitespace`
+
+### CI/CD
+
+A GitHub Workflow named `preflight` is configured to run these hooks automatically on every push and pull request to `main` or `master` branches.
 
 ## Extending the Project
 

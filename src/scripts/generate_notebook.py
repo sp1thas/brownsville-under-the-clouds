@@ -1,6 +1,7 @@
-import papermill as pm
 import os
 from datetime import datetime
+
+import papermill as pm
 
 # Path configuration
 TEMPLATE_PATH = "/opt/airflow/notebooks/template.ipynb"
@@ -20,8 +21,8 @@ pm.execute_notebook(
         postgres_host=os.getenv("POSTGRES_HOST"),
         postgres_user=os.getenv("POSTGRES_USER"),
         postgres_password=os.getenv("POSTGRES_PASSWORD"),
-        postgres_db=os.getenv("POSTGRES_DB")
-    )
+        postgres_db=os.getenv("POSTGRES_DB"),
+    ),
 )
 
 # Convert to HTML

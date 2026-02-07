@@ -1,33 +1,22 @@
+from datetime import datetime
+
 from airflow import DAG
-from airflow.operators.python import PythonOperator
 from airflow.operators.bash import BashOperator
-from airflow.hooks.base import BaseHook
-from datetime import datetime, timedelta
-import sys
-import os
+from airflow.operators.python import PythonOperator
 
-# Add src folder to path
-sys.path.append("/opt/airflow")
-from pipelines.api_pipeline import run_pipeline
-
-def run_dlt_api_task(ds, **kwargs):
-    # Retrieve connection from Airflow
-    conn = BaseHook.get_connection("postgres_default")
-    credentials = f"postgresql://{conn.login}:{conn.password}@{conn.host}:{conn.port}/{conn.schema}"
-    
-    run_pipeline(credentials, execution_date=ds)
+from pipelines.etl_tomorrow_api import run_pipeline
 
 with DAG(
     dag_id="full_pipeline_dag",
-    schedule_interval="@daily",
-    start_date=datetime(2023, 1, 1),
+    schedule_interval="@hourly",
+    start_date=datetime(2026, 2, 5),
     catchup=False,
-    tags=["full_pipeline"],
+    tags=["tomorrow"],
 ) as dag:
 
     extract_load = PythonOperator(
         task_id="dlt_extract_load",
-        python_callable=run_dlt_api_task,
+        python_callable=run_pipeline,
     )
 
     transform = BashOperator(
@@ -38,7 +27,7 @@ with DAG(
             "POSTGRES_USER": "{{ conn.postgres_default.login }}",
             "POSTGRES_PASSWORD": "{{ conn.postgres_default.password }}",
             "POSTGRES_DB": "{{ conn.postgres_default.schema }}",
-        }
+        },
     )
 
     generate_notebook = BashOperator(
@@ -50,7 +39,7 @@ with DAG(
             "POSTGRES_USER": "{{ conn.postgres_default.login }}",
             "POSTGRES_PASSWORD": "{{ conn.postgres_default.password }}",
             "POSTGRES_DB": "{{ conn.postgres_default.schema }}",
-        }
+        },
     )
 
     extract_load >> transform >> generate_notebook

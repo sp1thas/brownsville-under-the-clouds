@@ -1,0 +1,44 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+
+  - repo: https://github.com/psf/black
+    rev: 26.1.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/pycqa/isort
+    rev: 7.0.0
+    hooks:
+      - id: isort
+
+# todo: enable later on
+#  - repo: https://github.com/sqlfluff/sqlfluff
+#    rev: 4.0.0
+#    hooks:
+#      - id: sqlfluff-lint
+#        additional_dependencies: ['sqlfluff-templater-dbt']
+#        args: [--dialect, postgres]
+
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.36.1
+    hooks:
+      - id: check-github-workflows
+      - id: check-compose-spec
+
+  - repo: https://github.com/jazzband/pip-tools
+    rev: v7.5.2
+    hooks:
+      - id: pip-compile
+        name: pip-compile src/requirements/base.in
+        args:
+          [
+            src/requirements/base.in,
+            --output-file=src/requirements/base.txt,
+          ]
+        files: ^src/requirements/base\.(in|txt)$
