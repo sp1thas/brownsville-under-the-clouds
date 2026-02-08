@@ -1,6 +1,6 @@
 # brownsville-under-the-clouds
 
-[![preflight](https://github.com/sp1thas/brownsville-under-the-clouds/actions/workflows/preflight.yml/badge.svg)](https://github.com/sp1thas/brownsville-under-the-clouds/actions/workflows/preflight.yml)
+[![build](https://github.com/sp1thas/brownsville-under-the-clouds/actions/workflows/build.yml/badge.svg)](https://github.com/sp1thas/brownsville-under-the-clouds/actions/workflows/build.yml)
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)
 
