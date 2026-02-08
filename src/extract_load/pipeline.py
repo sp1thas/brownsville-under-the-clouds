@@ -1,10 +1,12 @@
 import dlt
 
-from extract_load.resources.seeds import seed_locations
-from extract_load.resources.tomorrow_api import add_merge_key, get_weather_forecast
+from extract_load.resources import add_merge_key, get_weather_forecast, seed_locations
 
 
 def run_pipeline():
+    """
+    Initializes and runs the dlt pipeline to extract weather data and load it into Postgres.
+    """
     pipeline = dlt.pipeline(
         pipeline_name="el_tomorrow_api",
         destination="postgres",

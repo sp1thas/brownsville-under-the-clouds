@@ -10,7 +10,10 @@ import dlt
     primary_key=["latitude", "longitude"],
 )
 def seed_locations():
+    """
+    Yields location coordinates from a local JSON file.
+    """
     # Load coordinates
-    with open("/opt/airflow/data/input/coordinates.json") as f:
+    with open("./data/input/coordinates.json") as f:
         for row in json.load(f):
             yield row

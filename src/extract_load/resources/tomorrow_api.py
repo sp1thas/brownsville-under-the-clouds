@@ -1,5 +1,3 @@
-import hashlib
-
 import dlt
 from dlt.common.utils import digest128
 from dlt.sources.helpers.rest_client import RESTClient
@@ -14,6 +12,9 @@ tomorrow_client = RESTClient(
 
 @dlt.resource(data_from=seed_locations)
 def get_weather_forecast(location):
+    """
+    Fetches the weather forecast for a given location from the Tomorrow.io API.
+    """
     yield tomorrow_client.get(
         "/v4/weather/forecast",
         params={"location": f"{location['latitude']},{location['longitude']}"},
@@ -28,6 +29,10 @@ def get_weather_forecast(location):
     max_table_nesting=3,
 )
 def add_merge_key(data):
+    """
+    Transforms the weather forecast data by adding a unique merge key (forecast_id)
+    and flattening the timelines.
+    """
     location = data.get("location")
     for timeline_type, timeline in data.get("timelines", {}).items():
         for item in timeline:

@@ -2,90 +2,59 @@
 
 [![preflight](https://github.com/sp1thas/brownsville-under-the-clouds/actions/workflows/preflight.yml/badge.svg)](https://github.com/sp1thas/brownsville-under-the-clouds/actions/workflows/preflight.yml)
 
-This project implements a structured data pipeline using DLT, DBT, Airflow, and Postgres, all running in Docker.
+This project implements an end-to-end weather forecasting pipeline for Brownsville, using DLT to fetch data from the Tomorrow.io API, dbt for transformations, and Airflow for orchestration, all running within Docker.
 
 ## Project Structure
 
-- `pipelines/`: DLT pipeline scripts for data extraction.
-- `dbt/`: DBT project for data transformation.
-- `airflow/dags/`: Airflow DAGs for orchestration.
-- `notebooks/`: Jupyter notebook templates and outputs.
-- `scripts/`: Helper scripts (e.g., notebook generation).
-- `data/`: Local static data files.
+- `src/extract_load/`: DLT pipeline scripts for data extraction and loading.
+- `src/transform/`: DBT project for data transformation.
+- `src/dags/`: Airflow DAGs for orchestration.
+- `src/report/`: Jupyter notebooks for data analysis and reporting.
+- `data/`: Local data files (input coordinates and output reports).
+- `requirements/`: Python dependency files.
+
+## Tooling
+
+- **Postgres**: An all-around relational db which never loses.
+- **DLT**: For extract and load purposes, built-in implementation for ingestion from various sources including APIs and various destinations.
+- **dbt**: For data transformations, data testing, documentation etc.
+- **Airflow**: A quite standard option for the orchestration of the ELT pipeline.
+- **Notebooks & Reporting**: Jupyter notebooks, pandas, papermill, and matplotlib are used for data analysis and generating automated reports.
 
 ## Prerequisites
 
 - Docker and Docker Compose installed.
+- A Tomorrow.io API token (see `.env.template`).
 
 ## How to Run
 
-1.  **Start the services**:
+1.  **Set up environment variables**:
+    Copy `.env.template` to `.env` and provide your Tomorrow.io API token:
+    ```bash
+    cp .env.template .env
+    ```
+    Edit `.env` and set `TOMORROW_API_KEY`.
+
+2.  **Start the services**:
     ```bash
     docker-compose up -d
     ```
 
-2.  **Access Airflow**:
+3.  **Access Airflow**:
     Open `http://localhost:8080` in your browser.
     Login with: `admin` / `admin`.
 
-3.  **Run DAGs**:
-    - `load_local_json_dag`: Manually trigger this to load `data/sample.json` into Postgres.
-    - `full_pipeline_dag`: This runs the end-to-end pipeline (DLT API -> DBT -> Notebook).
+4.  **Run DAGs**:
+    - `brownsville_forecasting`: This runs the end-to-end pipeline (DLT API -> DBT -> Notebook).
 
-## Development
 
-### Development Environment
+## Assumptions and Decisions
 
-This project uses `uv` for fast dependency management.
-
-1.  **Install uv**: Follow the [official guide](https://github.com/astral-sh/uv).
-2.  **Create environment and install dependencies**:
-    ```bash
-    uv venv
-    uv pip install -r requirements.txt
-    ```
-
-### Pre-commit Hooks
-
-This project uses `pre-commit` to maintain code quality. To set it up:
-
-1.  **Install pre-commit**:
-    ```bash
-    pip install pre-commit
-    ```
-
-2.  **Install the git hook scripts**:
-    ```bash
-    pre-commit install
-    ```
-
-3.  **Run against all files (optional)**:
-    ```bash
-    pre-commit run --all-files
-    ```
-
-Hooks included:
-- `black` (formatting)
-- `isort` (import sorting)
-- `flake8` (linting)
-- `sqlfluff` (SQL linting for dbt)
-- `hadolint` (Dockerfile linting)
-- `check-jsonschema` (Docker Compose and GitHub Workflows validation)
-- `check-yaml`, `end-of-file-fixer`, `trailing-whitespace`
-
-### CI/CD
-
-A GitHub Workflow named `preflight` is configured to run these hooks automatically on every push and pull request to `main` or `master` branches.
-
-## Extending the Project
-
-- **DLT**: Modify `pipelines/api_pipeline.py` to change the API source or extraction logic.
-- **DBT**: Add or modify models in `dbt/models/`.
-- **Notebook**: Customize `notebooks/template.ipynb` for your analytics and visualizations.
-
-## Implementation Details
-
-- **DLT**: Uses `dlt` library to load data into Postgres. Credentials are retrieved from Airflow's `postgres_default` connection.
-- **DBT**: Transformations are executed via `dbt build` within the Airflow `BashOperator`.
-- **Airflow**: Uses SQLite as metadata DB for simplicity (in a production environment, you should use Postgres/MySQL).
-- **Notebook**: Automated using `papermill` and `nbconvert`. Outputs are saved to `notebooks/output/`.
+-   **Insert Strategy**: Data is loaded using a `merge` write disposition based on `forecast_id`. Since weather forecasts for a given location and timestamp become more accurate as time passes, we overwrite previous forecasts for the same timestamp.
+-   **Airflow Setup**: The current setup is minimal and intended for demonstration purposes. For production environments, several changes should be implemented:
+    -   Use a dedicated metadata database (e.g., Postgres) instead of SQLite.
+    -   Switch to a more robust executor (e.g., Celery or Kubernetes) instead of the `SequentialExecutor`.
+    -   Deploy dedicated workers.
+-   **Security**: The `AIRFLOW__WEBSERVER__SECRET_KEY` is currently set to a static value for the demo. In production, this should be a properly managed secret.
+-   **Parallelism**: API calls are currently made sequentially. For larger datasets, parallelism and concurrency patterns should be applied to improve performance.
+-   **Dockerization**: A single Docker image contains all dependencies for this demo. In a production environment, this should be broken down into task-specific images to optimize performance and size.

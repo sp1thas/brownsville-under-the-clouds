@@ -8,6 +8,11 @@ from extract_load.pipeline import run_pipeline
 
 with DAG(
     dag_id="brownsville_forecasting",
+    doc_md="""
+    ### Brownsville Forecasting DAG
+    This DAG runs the weather forecasting pipeline for Brownsville.
+    It includes tasks to extract and load data, transform it using dbt, and generate a report.
+    """,
     schedule_interval=None,
     # schedule_interval="@hourly",
     start_date=datetime(2026, 2, 5),
@@ -23,7 +28,7 @@ with DAG(
     transform = BashOperator(
         task_id="transform",
         bash_command="""
-            cd /opt/airflow/src/transform &&
+            cd ./src/transform &&
             dbt deps &&
             dbt build --profiles-dir .
         """,
@@ -33,8 +38,8 @@ with DAG(
         task_id="report",
         bash_command="""
             papermill \
-                /opt/airflow/src/report/analysis.ipynb \
-                /opt/airflow/data/output/analysis-{{ ts }}.ipynb
+                ./src/report/analysis.ipynb \
+                ./data/output/analysis-{{ ts }}.ipynb
         """,
     )
 
