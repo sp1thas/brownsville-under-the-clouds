@@ -1,0 +1,149 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    description: "Raw schema containing source tables for weather data."
+    tables:
+      - name: tomorrow__weather_forecasts
+        description: "Weather forecast data including location, timeline, and multiple weather metrics. Data source Tomorrow API."
+        columns:
+          - name: forecast_id
+            description: "Unique forecast identifier."
+            data_type: string
+          - name: location__lat
+            description: "Latitude of the location."
+            data_type: float
+            tests:
+              - not_null
+              - dbt_utils.accepted_range:
+                  min_value: -90
+                  max_value: 90
+          - name: location__lon
+            description: "Longitude of the location."
+            data_type: float
+            tests:
+              - not_null
+              - dbt_utils.accepted_range:
+                  min_value: -180
+                  max_value: 180
+          - name: timeline_type
+            description: "Type of forecast timeline (e.g., hourly, daily)."
+            data_type: string
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['minutely', 'hourly', 'daily']
+          - name: time
+            description: "Timestamp of the forecast."
+            data_type: timestamp
+          - name: values__altimeter_setting
+            description: "Altimeter setting in hPa."
+            data_type: float
+          - name: values__cloud_base
+            description: "Cloud base height."
+            data_type: bigint
+          - name: values__cloud_cover
+            description: "Percentage of cloud cover."
+            data_type: float
+            tests:
+              - dbt_utils.accepted_range:
+                  min_value: 0
+                  max_value: 100
+          - name: values__dew_point
+            description: "Dew point temperature."
+            data_type: float
+          - name: values__evapotranspiration
+            description: "Evapotranspiration value."
+            data_type: float
+          - name: values__freezing_rain_intensity
+            description: "Freezing rain intensity."
+            data_type: bigint
+          - name: values__humidity
+            description: "Relative humidity percentage."
+            data_type: bigint
+            tests:
+              - dbt_utils.accepted_range:
+                  min_value: 0
+                  max_value: 100
+          - name: values__ice_accumulation
+            description: "Ice accumulation amount."
+            data_type: bigint
+          - name: values__ice_accumulation_lwe
+            description: "Liquid water equivalent of ice accumulation."
+            data_type: bigint
+          - name: values__precipitation_probability
+            description: "Probability of precipitation percentage."
+            data_type: bigint
+            tests:
+              - dbt_utils.accepted_range:
+                  min_value: 0
+                  max_value: 100
+          - name: values__pressure_sea_level
+            description: "Pressure at sea level."
+            data_type: float
+          - name: values__pressure_surface_level
+            description: "Pressure at surface level."
+            data_type: float
+          - name: values__rain_accumulation
+            description: "Rain accumulation."
+            data_type: bigint
+          - name: values__rain_intensity
+            description: "Rain intensity."
+            data_type: bigint
+          - name: values__sleet_accumulation
+            description: "Sleet accumulation."
+            data_type: bigint
+          - name: values__sleet_accumulation_lwe
+            description: "Liquid water equivalent of sleet accumulation."
+            data_type: bigint
+          - name: values__sleet_intensity
+            description: "Sleet intensity."
+            data_type: bigint
+          - name: values__snow_accumulation
+            description: "Snow accumulation."
+            data_type: bigint
+          - name: values__snow_accumulation_lwe
+            description: "Liquid water equivalent of snow accumulation."
+            data_type: bigint
+          - name: values__snow_intensity
+            description: "Snow intensity."
+            data_type: bigint
+          - name: values__temperature
+            description: "Air temperature."
+            data_type: float
+          - name: values__temperature_apparent
+            description: "Apparent temperature."
+            data_type: float
+          - name: values__uv_health_concern
+            description: "UV health concern rating."
+            data_type: bigint
+          - name: values__uv_index
+            description: "UV index."
+            data_type: bigint
+            tests:
+              - dbt_utils.accepted_range:
+                  min_value: 0
+                  max_value: 15
+          - name: values__visibility
+            description: "Visibility in meters."
+            data_type: bigint
+          - name: values__wind_direction
+            description: "Wind direction in degrees."
+            data_type: bigint
+            tests:
+              - dbt_utils.accepted_range:
+                  min_value: 0
+                  max_value: 360
+          - name: values__wind_gust
+            description: "Wind gust speed."
+            data_type: float
+          - name: values__wind_speed
+            description: "Wind speed."
+            data_type: float
+          - name: _dlt_load_id
+            description: "DLT load identifier."
+            data_type: string
+          - name: _dlt_id
+            description: "DLT unique identifier."
+            data_type: string

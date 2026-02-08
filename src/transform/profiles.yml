@@ -1,4 +1,4 @@
-my_postgres_profile:
+default:
   target: dev
   outputs:
     dev:
@@ -6,7 +6,7 @@ my_postgres_profile:
       host: "{{ env_var('POSTGRES_HOST', 'postgres') }}"
       user: "{{ env_var('POSTGRES_USER', 'postgres') }}"
       password: "{{ env_var('POSTGRES_PASSWORD', 'postgres') }}"
-      port: 5432
+      port: "{{ env_var('POSTGRES_PORT', '5432') | as_native }}"
       dbname: "{{ env_var('POSTGRES_DB', 'destination_db') }}"
-      schema: public
+      schema: raw
       threads: 1

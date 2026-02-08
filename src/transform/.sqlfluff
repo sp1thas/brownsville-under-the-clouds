@@ -5,8 +5,8 @@ runaway_limit = 10
 max_line_length = 80
 
 [sqlfluff:templater:dbt]
-project_dir = ./src
-profiles_dir = ./src
+project_dir = .
+profiles_dir = .
 
 [sqlfluff:indentation]
 tab_width = 4

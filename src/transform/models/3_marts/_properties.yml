@@ -1,0 +1,55 @@
+version: 2
+
+models:
+  - name: fct_latest_weather
+    description: "Captures the latest temperature and wind speed for each geolocation based on the most recent observation time."
+    columns:
+      - name: lat
+        description: "Latitude of the geolocation."
+        tests:
+          - not_null
+      - name: lon
+        description: "Longitude of the geolocation."
+        tests:
+          - not_null
+      - name: latest_observation_time
+        description: "The most recent timestamp for which weather data is available for this location."
+        tests:
+          - not_null
+      - name: latest_temperature
+        description: "The latest recorded temperature at the given location."
+      - name: latest_wind_speed
+        description: "The latest recorded wind speed at the given location."
+
+  - name: fct_weather_time_series
+    schema: marts
+    description: "Hourly time series of weather variables (temperature, humidity, wind speed, precipitation probability) from 1 day ago to 5 days in the future."
+    columns:
+      - name: lat
+        description: "Latitude of the geolocation."
+        tests:
+          - not_null
+      - name: lon
+        description: "Longitude of the geolocation."
+        tests:
+          - not_null
+      - name: time
+        description: "The timestamp of the weather data point."
+        tests:
+          - not_null
+      - name: temperature
+        description: "The temperature at the given time."
+      - name: humidity
+        description: "The relative humidity at the given time."
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 100
+      - name: wind_speed
+        description: "The wind speed at the given time."
+      - name: precipitation_probability
+        description: "The probability of precipitation at the given time."
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 100

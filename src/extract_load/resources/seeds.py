@@ -11,6 +11,6 @@ import dlt
 )
 def seed_locations():
     # Load coordinates
-    with open("/opt/airflow/data/coordinates.json") as f:
+    with open("/opt/airflow/data/input/coordinates.json") as f:
         for row in json.load(f):
             yield row

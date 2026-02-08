@@ -2,3 +2,4 @@
 **/*.pyi
 **/*.pyx
 **/__pycache__
+.github/

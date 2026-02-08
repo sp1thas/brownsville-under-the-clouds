@@ -51,7 +51,7 @@ services:
           --email admin@example.com \
           --password admin" || echo "Admin user already exists"
 
-  webserver:
+  airflow-webserver:
     <<: *airflow-common
     command:
       - |
@@ -62,7 +62,7 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
-  scheduler:
+  airflow-scheduler:
     <<: *airflow-common
     command:
       - |

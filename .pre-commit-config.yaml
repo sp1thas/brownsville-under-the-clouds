@@ -16,6 +16,7 @@ repos:
     rev: 7.0.0
     hooks:
       - id: isort
+        args: ["--profile", "black"]
 
 # todo: enable later on
 #  - repo: https://github.com/sqlfluff/sqlfluff
@@ -35,10 +36,10 @@ repos:
     rev: v7.5.2
     hooks:
       - id: pip-compile
-        name: pip-compile src/requirements/base.in
+        name: pip-compile requirements/base.in
         args:
           [
-            src/requirements/base.in,
-            --output-file=src/requirements/base.txt,
+            requirements/base.in,
+            --output-file=requirements/base.txt,
           ]
-        files: ^src/requirements/base\.(in|txt)$
+        files: ^requirements/base\.(in|txt)$
