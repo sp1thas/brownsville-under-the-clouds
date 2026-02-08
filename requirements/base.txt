@@ -14,8 +14,6 @@ annotated-types==0.7.0
     # via pydantic
 ansicolors==1.1.8
     # via papermill
-appnope==0.1.4
-    # via ipykernel
 asttokens==3.0.1
     # via stack-data
 attrs==25.4.0
