@@ -1,4 +1,4 @@
-name: preflight
+name: build
 
 on:
   push:
@@ -23,3 +23,22 @@ jobs:
       run: |
         pip install dbt-postgres sqlfluff-templater-dbt
     - uses: pre-commit/action@v3.0.1
+  airflow-dags:
+    needs: [pre-commit]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install --no-cache-dir pytest apache-airflow==2.9.3
+          pip install --no-cache-dir -r requirements/base.txt
+
+      - name: Run DAG integrity test
+        env:
+          PYTHONPATH: ${{ github.workspace }}/src
+        run: |
+          pytest src/tests/test_dag_integrity.py
