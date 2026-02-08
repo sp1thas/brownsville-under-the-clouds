@@ -27,7 +27,7 @@ with DAG(
     transform = BashOperator(
         task_id="transform",
         bash_command="""
-            cd ./src/transform &&
+            cd /opt/airflow/src/transform &&
             dbt deps &&
             dbt build --profiles-dir .
         """,
@@ -37,8 +37,8 @@ with DAG(
         task_id="report",
         bash_command="""
             papermill \
-                ./src/report/analysis.ipynb \
-                ./data/output/analysis-{{ ts }}.ipynb
+                /opt/airflow/src/report/analysis.ipynb \
+                /opt/airflow/data/output/analysis-{{ ts }}.ipynb
         """,
     )
 

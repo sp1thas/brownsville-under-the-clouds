@@ -41,7 +41,7 @@ services:
     user: "0:0"
     command:
       - |
-        chown -R airflow:root .//metadata &&
+        chown -R airflow:root /opt/airflow/metadata &&
         su -s /bin/bash airflow -c "airflow db migrate" &&
         su -s /bin/bash airflow -c "airflow users create \
           --username admin \
