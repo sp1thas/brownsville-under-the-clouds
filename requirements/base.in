@@ -1,8 +1,6 @@
 dbt-postgres
 dlt[postgres]
 pandas
-sqlalchemy<2.2
 matplotlib
 ipykernel
 papermill
-psycopg2-binary

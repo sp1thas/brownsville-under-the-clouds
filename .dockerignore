@@ -3,3 +3,6 @@
 **/*.pyx
 **/__pycache__
 .github/
+src/transform/logs
+src/transform/target
+src/transform/dbt_packages
