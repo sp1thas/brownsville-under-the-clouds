@@ -49,6 +49,9 @@ This project implements an end-to-end weather forecasting pipeline for Brownsvil
 4.  **Run DAGs**:
     - `brownsville_forecasting`: This runs the end-to-end pipeline (DLT API -> DBT -> Notebook).
 
+5.  **Check Results**:
+    After the DAG completes, check the generated notebook in the `data/output/` directory (e.g., `analysis-2026-02-08T16:31:12.ipynb`) to get insights and visualizations.
+
 
 ## Assumptions and Decisions
 
@@ -60,3 +63,4 @@ This project implements an end-to-end weather forecasting pipeline for Brownsvil
 -   **Security**: The `AIRFLOW__WEBSERVER__SECRET_KEY` is currently set to a static value for the demo. In production, this should be a properly managed secret.
 -   **Parallelism**: API calls are currently made sequentially. For larger datasets, parallelism and concurrency patterns should be applied to improve performance.
 -   **Dockerization**: A single Docker image contains all dependencies for this demo. In a production environment, this should be broken down into task-specific images to optimize performance and size.
+-   **Notebook Management**: The number of generated notebooks in `data/output/` will increase with each DAG run. For production, a regular cleanup or archiving strategy should be implemented to manage storage.
