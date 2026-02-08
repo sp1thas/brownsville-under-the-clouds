@@ -39,7 +39,7 @@ This project implements an end-to-end weather forecasting pipeline for Brownsvil
 
 2.  **Start the services**:
     ```bash
-    docker-compose up -d
+    docker-compose up
     ```
 
 3.  **Access Airflow**:
