@@ -40,5 +40,6 @@ jobs:
       - name: Run DAG integrity test
         env:
           PYTHONPATH: ${{ github.workspace }}/src
+          TOMORROW_API_KEY: foo
         run: |
           pytest src/tests/test_dag_integrity.py
