@@ -13,8 +13,7 @@ with DAG(
     This DAG runs the weather forecasting pipeline for Brownsville.
     It includes tasks to extract and load data, transform it using dbt, and generate a report.
     """,
-    schedule_interval=None,
-    # schedule_interval="@hourly",
+    schedule_interval="@hourly",
     start_date=datetime(2026, 2, 5),
     catchup=False,
     tags=["tomorrow"],

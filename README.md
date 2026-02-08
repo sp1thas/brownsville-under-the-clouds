@@ -1,6 +1,8 @@
 # brownsville-under-the-clouds
 
 [![preflight](https://github.com/sp1thas/brownsville-under-the-clouds/actions/workflows/preflight.yml/badge.svg)](https://github.com/sp1thas/brownsville-under-the-clouds/actions/workflows/preflight.yml)
+![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
+![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)
 
 This project implements an end-to-end weather forecasting pipeline for Brownsville, using DLT to fetch data from the Tomorrow.io API, dbt for transformations, and Airflow for orchestration, all running within Docker.
 
