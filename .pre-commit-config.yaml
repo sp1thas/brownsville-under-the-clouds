@@ -18,13 +18,15 @@ repos:
       - id: isort
         args: ["--profile", "black"]
 
-# todo: enable later on
-#  - repo: https://github.com/sqlfluff/sqlfluff
-#    rev: 4.0.0
-#    hooks:
-#      - id: sqlfluff-lint
-#        additional_dependencies: ['sqlfluff-templater-dbt']
-#        args: [--dialect, postgres]
+  - repo: https://github.com/sqlfluff/sqlfluff
+    rev: 4.0.0
+    hooks:
+      - id: sqlfluff-lint
+        args: ["src/transform"]
+        additional_dependencies: ["dbt-postgres", "sqlfluff-templater-dbt"]
+      - id: sqlfluff-fix
+        args: ["src/transform"]
+        additional_dependencies: ["dbt-postgres", "sqlfluff-templater-dbt"]
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.36.1

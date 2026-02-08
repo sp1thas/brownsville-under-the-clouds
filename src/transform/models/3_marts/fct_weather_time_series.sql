@@ -20,6 +20,7 @@ SELECT
     wind_speed,
     precipitation_probability
 FROM hourly_forecast
-WHERE time >= CURRENT_TIMESTAMP - INTERVAL '1 day'
-  AND time <= CURRENT_TIMESTAMP + INTERVAL '5 days'
+WHERE
+    time >= CURRENT_TIMESTAMP - INTERVAL '1 day'
+    AND time <= CURRENT_TIMESTAMP + INTERVAL '5 days'
 ORDER BY lat, lon, time

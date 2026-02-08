@@ -5,7 +5,7 @@ WITH latest_observations AS (
         time,
         temperature,
         wind_speed,
-        ROW_NUMBER() OVER (PARTITION BY lat, lon ORDER BY time DESC) as rn
+        ROW_NUMBER() OVER (PARTITION BY lat, lon ORDER BY time DESC) AS rn
     FROM {{ ref('stg_tomorrow__weather_forecast') }}
 )
 
