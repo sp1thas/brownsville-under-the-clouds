@@ -8,7 +8,10 @@ WITH hourly_forecast AS (
         wind_speed,
         precipitation_probability
     FROM {{ ref('stg_tomorrow__weather_forecast') }}
-    WHERE timeline_type = 'hourly'
+    WHERE
+        timeline_type = 'hourly'
+        AND temperature IS NOT NULL
+        AND wind_speed IS NOT NULL
 )
 
 SELECT

@@ -7,6 +7,9 @@ WITH latest_observations AS (
         wind_speed,
         ROW_NUMBER() OVER (PARTITION BY lat, lon ORDER BY time DESC) AS rn
     FROM {{ ref('stg_tomorrow__weather_forecast') }}
+    WHERE
+        temperature IS NOT NULL
+        AND wind_speed IS NOT NULL
 )
 
 SELECT

@@ -18,8 +18,12 @@ models:
           - not_null
       - name: latest_temperature
         description: "The latest recorded temperature at the given location."
+        tests:
+          - not_null
       - name: latest_wind_speed
         description: "The latest recorded wind speed at the given location."
+        tests:
+          - not_null
 
   - name: fct_weather_time_series
     schema: marts
@@ -39,6 +43,8 @@ models:
           - not_null
       - name: temperature
         description: "The temperature at the given time."
+        tests:
+          - not_null
       - name: humidity
         description: "The relative humidity at the given time."
         tests:
@@ -47,6 +53,8 @@ models:
               max_value: 100
       - name: wind_speed
         description: "The wind speed at the given time."
+        tests:
+          - not_null
       - name: precipitation_probability
         description: "The probability of precipitation at the given time."
         tests:
